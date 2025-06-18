@@ -6,7 +6,7 @@ This project was made by Muhammad Davinda Rinaldy in Training Program held by Ko
 ```mermaid
 erDiagram
     direction LR
-    movie {
+    movies {
         int id PK
         string name
         string synopsis
@@ -19,25 +19,25 @@ erDiagram
         int id PK
         string name
     }
-    movie_genres {
+    movies_genres {
         int id_genres PK,FK
-        int id_movie PK,FK
+        int id_movies PK,FK
     }
     directors {
         int id PK
         string name
     }
-    movie_directors {
+    movies_directors {
         int id_directors PK,FK
-        int id_movie PK,FK
+        int id_movies PK,FK
     }
     casts {
         int id PK
         string name
     }
-    movie_casts {
+    movies_casts {
         int id_casts PK,FK
-        int id_movie PK,FK
+        int id_movies PK,FK
     }
     users {
         int id PK
@@ -55,8 +55,8 @@ erDiagram
         int id PK
         int id_users FK
         int id_movie FK
-        string amount
-        string price 
+        int amount
+        decimal price 
         string location
         string cinema
         date time
