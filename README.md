@@ -71,7 +71,7 @@ erDiagram
     movie ||--|{ movie_casts: has
     movie_casts }|--|| casts: belongs_to
 
-    users }o--|| session: make
+    users ||--o{ session: make
     users ||--o{ transaction: create
     transaction ||--|{ movie: for
 ```
