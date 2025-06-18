@@ -7,45 +7,54 @@ This project was made by Muhammad Davinda Rinaldy in Training Program held by Ko
 erDiagram
     direction LR
     movie {
-        string id PK
+        int id PK
         string name
         string synopsis
         date release_date
         int runtime
         string poster
         string backdrop
-        string id_genres FK
-        string id_directors FK
-        string id_casts FK
     }
     genres { 
-        string id PK
+        int id PK
         string name
+    }
+    movie_genres {
+        int id_genres PK,FK
+        int id_movie PK,FK
     }
     directors {
-        string id PK
+        int id PK
         string name
+    }
+    movie_directors {
+        int id_directors PK,FK
+        int id_movie PK,FK
     }
     casts {
-        string id PK
+        int id PK
         string name
     }
+    movie_casts {
+        int id_casts PK,FK
+        int id_movie PK,FK
+    }
     users {
-        string id PK
+        int id PK
         string name
         string email
         string phone_number
         string password
     }
     session {
-        string id PK
-        string id_users FK
+        int id PK
+        int id_users FK
         timestamp created_at
     }
     transaction {
-        string id PK
-        string id_users FK
-        string id_movie FK
+        int id PK
+        int id_users FK
+        int id_movie FK
         string amount
         string price 
         string location
@@ -53,9 +62,15 @@ erDiagram
         date time
         string seats
     }
-    movie }|--|| genres: has
-    movie }|--|| directors: has
-    movie }|--|| casts: has
+    movie ||--|{ movie_genres: has
+    movie_genres }|--|| genres: belongs_to
+
+    movie ||--|{ movie_directors: has
+    movie_directors }|--|| directors: belongs_to
+
+    movie ||--|{ movie_casts: has
+    movie_casts }|--|| casts: belongs_to
+
     users }o--|| session: make
     users ||--o{ transaction: create
     transaction ||--|{ movie: for
