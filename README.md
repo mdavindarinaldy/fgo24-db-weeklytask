@@ -57,6 +57,6 @@ erDiagram
     movie }|--|| directors: has
     movie }|--|| casts: has
     users }o--|| session: make
-    users }o--|| transaction: create
-    transaction ||--o{ movie: for
+    users }|--o| transaction: create
+    transaction ||--|{ movie: for
 ```
