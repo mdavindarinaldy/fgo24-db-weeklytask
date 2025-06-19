@@ -2,7 +2,7 @@
 
 This project was made by Muhammad Davinda Rinaldy in Training Program held by Kodacademy to make ERD of tickitz project, using mermaid tool and Query Database, using PostgreSQL.
 
-## Entity Relationship Diagram 
+## Entity Relationship Diagram Ticket Booking Web App
 ```mermaid
 erDiagram
     direction LR
@@ -56,6 +56,7 @@ erDiagram
         int id PK
         int id_users FK
         int id_movie FK
+        int id_payment_method FK
         int amount
         string location
         string cinema
@@ -65,6 +66,10 @@ erDiagram
         int id PK
         int id_transaction FK
         string seat
+    }
+    payment_method {
+        int id PK
+        name string
     }
     movies ||--|{ movies_genres: has
     movies_genres }|--|| genres: belongs_to
@@ -78,5 +83,6 @@ erDiagram
     users ||--o{ session: make
     users ||--o{ transaction: create
     transaction ||--|{ movies: for
-    transaction ||--|{ transaction_detail: has 
+    transaction_detail }|--|| transaction: contained_by
+    transaction ||--|{ payment_method: with 
 ```
