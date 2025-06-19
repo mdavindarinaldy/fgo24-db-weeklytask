@@ -11,6 +11,7 @@ erDiagram
         string name
         string synopsis
         date release_date
+        decimal price 
         int runtime
         string poster
         string backdrop
@@ -56,22 +57,26 @@ erDiagram
         int id_users FK
         int id_movie FK
         int amount
-        decimal price 
         string location
         string cinema
         date time
-        string seats
     }
-    movie ||--|{ movie_genres: has
-    movie_genres }|--|| genres: belongs_to
+    transaction_detail {
+        int id PK
+        int id_transaction FK
+        string seat
+    }
+    movies ||--|{ movies_genres: has
+    movies_genres }|--|| genres: belongs_to
 
-    movie ||--|{ movie_directors: has
-    movie_directors }|--|| directors: belongs_to
+    movies ||--|{ movies_directors: has
+    movies_directors }|--|| directors: belongs_to
 
-    movie ||--|{ movie_casts: has
-    movie_casts }|--|| casts: belongs_to
+    movies ||--|{ movies_casts: has
+    movies_casts }|--|| casts: belongs_to
 
     users ||--o{ session: make
     users ||--o{ transaction: create
-    transaction ||--|{ movie: for
+    transaction ||--|{ movies: for
+    transaction ||--|{ transaction_detail: has 
 ```
