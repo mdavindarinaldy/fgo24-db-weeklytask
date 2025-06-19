@@ -1,3 +1,4 @@
+-- Active: 1750325183929@@127.0.0.1@5432@postgres@public
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -14,12 +15,13 @@ CREATE TABLE movies (
 
 CREATE TABLE genres (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE movie_genres (
-    id_genres INT PRIMARY KEY REFERENCES genres(id),
-    id_movies INT PRIMARY KEY REFERENCES movies(id)
+    id_genres INT REFERENCES genres(id),
+    id_movies INT REFERENCES movies(id),
+    PRIMARY KEY (id_genres, id_movies)
 );
 
 CREATE TABLE directors (
@@ -31,8 +33,9 @@ CREATE TABLE directors (
 );
 
 CREATE TABLE movie_directors (
-    id_directors INT PRIMARY KEY REFERENCES directors(id),
-    id_movies INT PRIMARY KEY REFERENCES movies(id)
+    id_directors INT REFERENCES directors(id),
+    id_movies INT REFERENCES movies(id),
+    PRIMARY KEY(id_directors, id_movies)
 );
 
 CREATE TABLE casts (
@@ -44,8 +47,9 @@ CREATE TABLE casts (
 );
 
 CREATE TABLE movie_casts (
-    id_casts INT PRIMARY KEY REFERENCES casts(id),
-    id_movies INT PRIMARY KEY REFERENCES movies(id)
+    id_casts INT REFERENCES casts(id),
+    id_movies INT REFERENCES movies(id),
+    PRIMARY KEY (id_casts, id_movies)
 );
 
 CREATE TABLE users (
@@ -64,7 +68,7 @@ CREATE TABLE users (
 CREATE TABLE session (
     id SERIAL PRIMARY KEY,
     id_users INT REFERENCES users(id),
-    created_at TIMESTAMP DEFAULT NOW
+    created_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE payment_method (
@@ -79,16 +83,16 @@ CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
     id_users INT REFERENCES users(id),
     id_movies INT REFERENCES movies(id),
-    id_payment_method INT REFERENCES payment_method(id)
+    id_payment_method INT REFERENCES payment_method(id),
     amount INT NOT NULL,
     location VARCHAR(255) NOT NULL,
     cinema VARCHAR(255) NOT NULL,
-    time DATE,
+    time DATE
 );
 
 CREATE TABLE transaction_detail (
     id SERIAL PRIMARY KEY,
-    id_transaction INT REFERENCES transactions(id)
-    seats VARCHAR(255) NOT NULL,
+    id_transaction INT REFERENCES transactions(id),
+    seats VARCHAR(255) NOT NULL
 );
 
