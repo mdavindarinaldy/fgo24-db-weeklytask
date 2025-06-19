@@ -54,7 +54,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     phone_number VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    CONSTRAINT movies_constraint CHECK(
+    CONSTRAINT users_constraint CHECK(
         LENGTH(TRIM(name))>=3
         AND
         LENGTH(password) BETWEEN 8 AND 16
@@ -67,19 +67,28 @@ CREATE TABLE session (
     created_at TIMESTAMP DEFAULT NOW
 );
 
-CREATE TABLE transactions {
+CREATE TABLE payment_method (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    CONSTRAINT users_constraint CHECK(
+        LENGTH(TRIM(name))>=3
+    )
+);
+
+CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
     id_users INT REFERENCES users(id),
     id_movies INT REFERENCES movies(id),
+    id_payment_method INT REFERENCES payment_method(id)
     amount INT NOT NULL,
     location VARCHAR(255) NOT NULL,
     cinema VARCHAR(255) NOT NULL,
     time DATE,
-};
+);
 
-CREATE TABLE transaction_detail {
+CREATE TABLE transaction_detail (
     id SERIAL PRIMARY KEY,
     id_transaction INT REFERENCES transactions(id)
     seats VARCHAR(255) NOT NULL,
-};
+);
 
