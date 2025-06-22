@@ -47,29 +47,30 @@ erDiagram
         string phone_number
         string password
     }
-    session {
+    sessions {
         int id PK
         int id_users FK
         timestamp created_at
     }
-    transaction {
+    transactions {
         int id PK
         int id_users FK
         int id_movie FK
         int id_payment_method FK
-        int amount
+        decimal total_amount
         string location
         string cinema
-        date time
+        date showtime
+        timestamp created_at
     }
-    transaction_detail {
+    transactions_detail {
         int id PK
         int id_transaction FK
         string seat
     }
-    payment_method {
+    payment_methods {
         int id PK
-        name string
+        string name
     }
     movies ||--|{ movies_genres: has
     movies_genres }|--|| genres: belongs_to
@@ -80,9 +81,9 @@ erDiagram
     movies ||--|{ movies_casts: has
     movies_casts }|--|| casts: belongs_to
 
-    users ||--o{ session: make
-    users ||--o{ transaction: create
-    transaction ||--|{ movies: for
-    transaction_detail }|--|| transaction: contained_by
-    transaction ||--|{ payment_method: with 
+    users ||--o{ sessions: make
+    users ||--o{ transactions: create
+    transactions }o--|| movies: for
+    transactions_detail }|--|| transactions: contained_by
+    transactions }o--|| payment_methods: with 
 ```
