@@ -2,7 +2,7 @@
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    synopsis VARCHAR(255) NOT NULL,
+    synopsis TEXT NOT NULL,
     release_date DATE NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     runtime INT NOT NULL,
@@ -84,10 +84,11 @@ CREATE TABLE transactions (
     id_users INT REFERENCES users(id),
     id_movies INT REFERENCES movies(id),
     id_payment_method INT REFERENCES payment_method(id),
-    amount INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
     location VARCHAR(255) NOT NULL,
     cinema VARCHAR(255) NOT NULL,
-    time DATE
+    showtime DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE transaction_detail (
