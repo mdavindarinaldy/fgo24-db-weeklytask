@@ -1,9 +1,15 @@
--- Active: 1750243722212@@127.0.0.1@5432@postgres@public
-INSERT INTO movies(name, synopsis, release_date, price, runtime, poster, backdrop)
+INSERT INTO users(name,email,phone_number,password,role)
 VALUES
-('Jumbo','Menceritakan kisah Don, seorang anak laki-laki yang bertubuh besar dan sering dipanggil "Jumbo".','2025-03-31',10000,102,'url','url-backdrop'),
-('Final Destination Bloodlines','Plagued by a violent and recurring nightmare.','2025-05-16',10000,109,'url','url-backdrop'),
-('Lilo & Stitch','Ohana means family. Family means nobody gets left behind or forgotten.','2025-05-22',10000,108,'url','url-backdrop');
+('rinto','rinto@gmail.com','081','12345678','user'),
+('rana','rana@gmail.com','083','12345678','user'),
+('rizqo','rizqo@gmail.com','082','12345678','user'),
+('davinda','davinda@gmail.com','085','admin123','admin');
+
+INSERT INTO movies(name, created_by, synopsis, release_date, price, runtime, poster, backdrop)
+VALUES
+('Jumbo',8,'Menceritakan kisah Don, seorang anak laki-laki yang bertubuh besar dan sering dipanggil "Jumbo".','2025-03-31',10000,102,'url','url-backdrop'),
+('Final Destination Bloodlines',8,'Plagued by a violent and recurring nightmare.','2025-05-16',10000,109,'url','url-backdrop'),
+('Lilo & Stitch',8,'Ohana means family. Family means nobody gets left behind or forgotten.','2025-05-22',10000,108,'url','url-backdrop');
 
 INSERT INTO genres (name)
 VALUES ('Action'),('Adventure'),('Thriller'),('Animation'),('Sci-Fi'),('Family');
@@ -42,12 +48,6 @@ VALUES
 
 INSERT INTO payment_method(name)
 VALUES ('OVO'), ('Gopay'), ('Dana'), ('QRIS');
-
-INSERT INTO users(name,email,phone_number,password)
-VALUES
-('rinto','rinto@gmail.com','081','12345678'),
-('rana','rana@gmail.com','083','12345678'),
-('rizqo','rizqo@gmail.com','082','12345678');
 
 INSERT INTO transactions(id_users,id_movies,id_payment_method,amount,location,cinema,time)
 VALUES

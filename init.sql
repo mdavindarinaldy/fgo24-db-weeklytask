@@ -1,6 +1,23 @@
--- Active: 1750325183929@@127.0.0.1@5432@postgres@public
+-- Active: 1750693263456@@127.0.0.1@5432@postgres
+CREATE TYPE roles AS ENUM ('admin','user');
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone_number VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role roles NOT NULL,
+    CONSTRAINT users_constraint CHECK(
+        LENGTH(TRIM(name))>=3
+        AND
+        LENGTH(password) BETWEEN 8 AND 16
+    )
+);
+
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
+    created_by INT REFERENCES users(id),
     name VARCHAR(255) NOT NULL,
     synopsis TEXT NOT NULL,
     release_date DATE NOT NULL,
@@ -50,19 +67,6 @@ CREATE TABLE movie_casts (
     id_casts INT REFERENCES casts(id),
     id_movies INT REFERENCES movies(id),
     PRIMARY KEY (id_casts, id_movies)
-);
-
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    phone_number VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    CONSTRAINT users_constraint CHECK(
-        LENGTH(TRIM(name))>=3
-        AND
-        LENGTH(password) BETWEEN 8 AND 16
-    )
 );
 
 CREATE TABLE session (
