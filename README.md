@@ -6,8 +6,17 @@ This project was made by Muhammad Davinda Rinaldy in Training Program held by Ko
 ```mermaid
 erDiagram
     direction LR
+    users {
+        int id PK
+        string name
+        string email
+        string phone_number
+        string password
+        enum role
+    }
     movies {
         int id PK
+        int created_by FK
         string name
         string synopsis
         date release_date
@@ -39,13 +48,6 @@ erDiagram
     movies_casts {
         int id_casts PK,FK
         int id_movies PK,FK
-    }
-    users {
-        int id PK
-        string name
-        string email
-        string phone_number
-        string password
     }
     sessions {
         int id PK
@@ -83,7 +85,10 @@ erDiagram
 
     users ||--o{ sessions: make
     users ||--o{ transactions: create
+    users ||--o{ movies : manages
     transactions }o--|| movies: for
     transactions_detail }|--|| transactions: contained_by
     transactions }o--|| payment_methods: with 
+    users 
+
 ```
